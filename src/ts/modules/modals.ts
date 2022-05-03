@@ -1,8 +1,10 @@
+import { isTemplateExpression } from "typescript"
+
 interface IBindModal {
   triggerSelector: string
   modalSelector: string
   closeSelector: string
-  closeClickOverlay?: boolean
+  destroy?: boolean
 }
 
 export const modals = () => {
@@ -11,8 +13,9 @@ export const modals = () => {
       triggerSelector,
       modalSelector,
       closeSelector,
-      closeClickOverlay = true
+      destroy = false
     } = args
+
     const triggers = document.querySelectorAll(triggerSelector),
       modal: HTMLElement = document.querySelector(modalSelector),
       close = document.querySelector(closeSelector),
@@ -23,6 +26,10 @@ export const modals = () => {
       trigger.addEventListener('click', (e: any) => {
         if (e.target) {
           e.preventDefault()
+        }
+
+        if (destroy) {
+          trigger.remove()
         }
 
         windows.forEach((window) => {
@@ -46,7 +53,7 @@ export const modals = () => {
     })
 
     modal.addEventListener('click', (e) => {
-      if (e.target === modal && closeClickOverlay) {
+      if (e.target === modal) {
         closeModal()
       }
     })
@@ -74,6 +81,8 @@ export const modals = () => {
       if (!display) {
         document.querySelector<HTMLElement>(selector).style.display = 'block'
         document.body.style.overflow = 'hidden'
+        const scroll = calсScroll()
+        document.body.style.marginRight = `${scroll}px`
       }
     }, time)
   }
@@ -104,6 +113,12 @@ export const modals = () => {
       triggerSelector: '.button-consultation',
       modalSelector: '.popup-consultation',
       closeSelector: '.popup-consultation .popup-close'
+    }),
+    bindModal({
+      triggerSelector: '.fixed-gift',
+      modalSelector: '.popup-gift',
+      closeSelector: '.popup-gift .popup-close',
+      destroy: true
     })
-  // showModalByTime('.popup-consultation', 6000)
+  showModalByTime('.popup-consultation', 6000)
 }
