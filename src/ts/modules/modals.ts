@@ -1,4 +1,4 @@
-import { isTemplateExpression } from "typescript"
+// import { isTemplateExpression } from "typescript"
 
 interface IBindModal {
   triggerSelector: string
@@ -8,6 +8,8 @@ interface IBindModal {
 }
 
 export const modals = () => {
+  let btnPressed = false
+
   function bindModal(args: IBindModal) {
     const {
       triggerSelector,
@@ -17,16 +19,18 @@ export const modals = () => {
     } = args
 
     const triggers = document.querySelectorAll(triggerSelector),
-      modal: HTMLElement = document.querySelector(modalSelector),
-      close = document.querySelector(closeSelector),
-      windows = document.querySelectorAll<HTMLElement>('[data-modal]'),
-      scroll = calсScroll()
+          modal: HTMLElement = document.querySelector(modalSelector),
+          close = document.querySelector(closeSelector),
+          windows = document.querySelectorAll<HTMLElement>('[data-modal]'),
+          scroll = calсScroll()
 
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', (e: any) => {
         if (e.target) {
           e.preventDefault()
         }
+
+        btnPressed = true
 
         if (destroy) {
           trigger.remove()
@@ -104,21 +108,32 @@ export const modals = () => {
     return scrollWidth
   }
 
+  function openByScroll(selector:any) {
+    window.addEventListener('scroll', () => {
+      if (!btnPressed && (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight)) {
+        document.querySelector(selector).click()
+      }
+    })
+  }
+
   bindModal({
     triggerSelector: '.button-design',
     modalSelector: '.popup-design',
     closeSelector: '.popup-design .popup-close'
   }),
-    bindModal({
-      triggerSelector: '.button-consultation',
-      modalSelector: '.popup-consultation',
-      closeSelector: '.popup-consultation .popup-close'
-    }),
-    bindModal({
-      triggerSelector: '.fixed-gift',
-      modalSelector: '.popup-gift',
-      closeSelector: '.popup-gift .popup-close',
-      destroy: true
-    })
-  showModalByTime('.popup-consultation', 6000)
+  bindModal({
+    triggerSelector: '.button-consultation',
+    modalSelector: '.popup-consultation',
+    closeSelector: '.popup-consultation .popup-close'
+  }),
+  bindModal({
+    triggerSelector: '.fixed-gift',
+    modalSelector: '.popup-gift',
+    closeSelector: '.popup-gift .popup-close',
+    destroy: true
+  })
+
+  openByScroll('.fixed-gift')
+
+  // showModalByTime('.popup-consultation', 6000)
 }
