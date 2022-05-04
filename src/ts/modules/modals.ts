@@ -1,28 +1,39 @@
+// import { isTemplateExpression } from "typescript"
+
 interface IBindModal {
   triggerSelector: string
   modalSelector: string
   closeSelector: string
-  closeClickOverlay?: boolean
+  destroy?: boolean
 }
 
 export const modals = () => {
+  let btnPressed = false
+
   function bindModal(args: IBindModal) {
     const {
       triggerSelector,
       modalSelector,
       closeSelector,
-      closeClickOverlay = true
+      destroy = false
     } = args
+
     const triggers = document.querySelectorAll(triggerSelector),
-      modal: HTMLElement = document.querySelector(modalSelector),
-      close = document.querySelector(closeSelector),
-      windows = document.querySelectorAll<HTMLElement>('[data-modal]'),
-      scroll = calсScroll()
+          modal: HTMLElement = document.querySelector(modalSelector),
+          close = document.querySelector(closeSelector),
+          windows = document.querySelectorAll<HTMLElement>('[data-modal]'),
+          scroll = calсScroll()
 
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', (e: any) => {
         if (e.target) {
           e.preventDefault()
+        }
+
+        btnPressed = true
+
+        if (destroy) {
+          trigger.remove()
         }
 
         windows.forEach((window) => {
@@ -46,7 +57,7 @@ export const modals = () => {
     })
 
     modal.addEventListener('click', (e) => {
-      if (e.target === modal && closeClickOverlay) {
+      if (e.target === modal) {
         closeModal()
       }
     })
@@ -74,6 +85,8 @@ export const modals = () => {
       if (!display) {
         document.querySelector<HTMLElement>(selector).style.display = 'block'
         document.body.style.overflow = 'hidden'
+        const scroll = calсScroll()
+        document.body.style.marginRight = `${scroll}px`
       }
     }, time)
   }
@@ -95,15 +108,32 @@ export const modals = () => {
     return scrollWidth
   }
 
+  function openByScroll(selector:any) {
+    window.addEventListener('scroll', () => {
+      if (!btnPressed && (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight)) {
+        document.querySelector(selector).click()
+      }
+    })
+  }
+
   bindModal({
     triggerSelector: '.button-design',
     modalSelector: '.popup-design',
     closeSelector: '.popup-design .popup-close'
   }),
-    bindModal({
-      triggerSelector: '.button-consultation',
-      modalSelector: '.popup-consultation',
-      closeSelector: '.popup-consultation .popup-close'
-    })
+  bindModal({
+    triggerSelector: '.button-consultation',
+    modalSelector: '.popup-consultation',
+    closeSelector: '.popup-consultation .popup-close'
+  }),
+  bindModal({
+    triggerSelector: '.fixed-gift',
+    modalSelector: '.popup-gift',
+    closeSelector: '.popup-gift .popup-close',
+    destroy: true
+  })
+
+  openByScroll('.fixed-gift')
+
   // showModalByTime('.popup-consultation', 6000)
 }
