@@ -26,9 +26,7 @@ export const forms = () => {
   }
 
   const clearInputs = () => {
-    inputs.forEach(input => {
-      input.value = ''
-    })
+    inputs.forEach(input => input.value = '' )
     upload.forEach(load => {
       load.previousElementSibling.textContent = 'Файл не выбран'
     })
@@ -36,11 +34,11 @@ export const forms = () => {
 
   upload.forEach(item => {
     item.addEventListener('input', () => {
-      console.log(item.files[0])
-      let dots = ''
-      const arr = item.files[0].name.split('.')
-      arr[0].length > 6 ? dots = '...' : dots = '.'
-      const name = arr[0].substring(0, 6) + dots + arr[1]
+      const file = item.files[0]
+      const fileName = file.name.split('.')[0]
+      const fileType = file.name.split('.')[1]      
+      const dots = fileName.length > 6 ? '...' : '.'
+      const name = `${fileName.substring(0, 6)}${dots}${fileType}`
       item.previousElementSibling.textContent = name
     })
   })
