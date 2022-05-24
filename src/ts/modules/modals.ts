@@ -24,8 +24,8 @@ export const modals = () => {
           windows = document.querySelectorAll<HTMLElement>('[data-modal]'),
           scroll = calсScroll()
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', (e: any) => {
+    triggers.forEach((trigger: Element) => {
+      trigger.addEventListener('click', (e: Event) => {
         if (e.target) {
           e.preventDefault()
         }
@@ -36,7 +36,7 @@ export const modals = () => {
           trigger.remove()
         }
 
-        windows.forEach((window) => {
+        windows.forEach((window: HTMLElement) => {
           window.style.display = 'none'
         })
 
@@ -50,20 +50,20 @@ export const modals = () => {
       closeModal()
     })
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeModal()
       }
     })
 
-    modal.addEventListener('click', (e) => {
+    modal.addEventListener('click', (e: MouseEvent) => {
       if (e.target === modal) {
         closeModal()
       }
     })
 
     const closeModal = () => {
-      windows.forEach((window) => {
+      windows.forEach((window: HTMLElement) => {
         window.style.display = 'none'
       })
 
@@ -77,7 +77,7 @@ export const modals = () => {
     setTimeout(() => {
       let display: string | null = null
 
-      document.querySelectorAll('[data-modal]').forEach((item) => {
+      document.querySelectorAll('[data-modal]').forEach((item: Element) => {
         if (getComputedStyle(item).display !== 'none') {
           display = 'block'
         }
@@ -108,10 +108,10 @@ export const modals = () => {
     return scrollWidth
   }
 
-  function openByScroll(selector:any) {
+  function openByScroll(selector: string) {
     window.addEventListener('scroll', () => {
       if (!btnPressed && (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight)) {
-        document.querySelector(selector).click()
+        document.querySelector<HTMLElement>(selector).click()
       }
     })
   }
