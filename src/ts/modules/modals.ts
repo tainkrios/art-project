@@ -1,5 +1,3 @@
-// import { isTemplateExpression } from "typescript"
-
 interface IBindModal {
   triggerSelector: string
   modalSelector: string

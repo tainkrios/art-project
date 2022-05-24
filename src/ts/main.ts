@@ -1,4 +1,4 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles } from './modules/modules'
+import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc } from './modules/modules'
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'
@@ -22,5 +22,13 @@ window.addEventListener('DOMContentLoaded', () => {
   checkTextInputs('[name="name"]')
   checkTextInputs('[name="message"]')
 
-  showMoreStyles('.button-styles', '.styles-2')
+  showMoreStyles('.button-styles', '#styles .row')
+
+  calc({
+    size: '#size',
+    material: '#material',
+    options: '#options',
+    promo: '.promocode',
+    result: '.calc-price'
+  })
 })
