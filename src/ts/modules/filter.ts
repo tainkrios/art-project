@@ -10,13 +10,13 @@ export const filter = () => {
         btnGranddad = menu.querySelector('.granddad'),
         wrapper = document.querySelector('.portfolio-wrapper'),
         markAll = wrapper.querySelectorAll<HTMLElement>('.all'),
-        markLovers = wrapper.querySelectorAll('.lovers'),
-        markChef = wrapper.querySelectorAll('.chef'),
-        markGirl = wrapper.querySelectorAll('.girl'),
-        markGuy = wrapper.querySelectorAll('.guy'),
+        markLovers = wrapper.querySelectorAll<HTMLElement>('.lovers'),
+        markChef = wrapper.querySelectorAll<HTMLElement>('.chef'),
+        markGirl = wrapper.querySelectorAll<HTMLElement>('.girl'),
+        markGuy = wrapper.querySelectorAll<HTMLElement>('.guy'),
         no = document.querySelector<HTMLElement>('.portfolio-no')
 
-  const typeFilter = (markType?: HTMLAllCollection) => {
+  const typeFilter = (markType?: NodeListOf<Element>) => {
     markAll.forEach(mark => {
       mark.style.display = 'none'
       mark.classList.remove('animated', 'fadeIn')
@@ -27,7 +27,7 @@ export const filter = () => {
 
     if (markType) {
       markType.forEach(mark => {
-        mark.style.display = 'block'
+        mark.style.display = 'block' //тут так и не нашел нужный тип
         mark.classList.add('animated', 'fadeIn')
       })
     } else {
