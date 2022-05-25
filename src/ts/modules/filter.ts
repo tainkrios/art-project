@@ -10,14 +10,14 @@ export const filter = () => {
         btnGranddad = menu.querySelector('.granddad'),
         wrapper = document.querySelector('.portfolio-wrapper'),
         markAll = wrapper.querySelectorAll<HTMLElement>('.all'),
-        markLovers = wrapper.querySelectorAll<HTMLElement>('.lovers'),
-        markChef = wrapper.querySelectorAll<HTMLElement>('.chef'),
-        markGirl = wrapper.querySelectorAll<HTMLElement>('.girl'),
-        markGuy = wrapper.querySelectorAll<HTMLElement>('.guy'),
+        markLovers = wrapper.querySelectorAll('.lovers'),
+        markChef = wrapper.querySelectorAll('.chef'),
+        markGirl = wrapper.querySelectorAll('.girl'),
+        markGuy = wrapper.querySelectorAll('.guy'),
         no = document.querySelector<HTMLElement>('.portfolio-no')
 
-  const typeFilter = (markType?: NodeListOf<Element>) => {
-    markAll.forEach(mark => {
+  const typeFilter = (markType: NodeListOf<Element>) => {
+    markAll.forEach(mark  => {
       mark.style.display = 'none'
       mark.classList.remove('animated', 'fadeIn')
     })
@@ -26,8 +26,8 @@ export const filter = () => {
     no.classList.remove('animated', 'fadeIn')
 
     if (markType) {
-      markType.forEach(mark => {
-        mark.style.display = 'block' //тут так и не нашел нужный тип
+      markType.forEach((mark: HTMLElement) => {
+        mark.style.display = 'block'
         mark.classList.add('animated', 'fadeIn')
       })
     } else {
@@ -36,27 +36,17 @@ export const filter = () => {
     }
   }
 
-  btnAll.addEventListener('click', () => {
-    typeFilter(markAll)
-  })
-  btnLovers.addEventListener('click', () => {
-    typeFilter(markLovers)
-  })
-  btnChef.addEventListener('click', () => {
-    typeFilter(markChef)
-  })
-  btnGirl.addEventListener('click', () => {
-    typeFilter(markGirl)
-  })
-  btnGuy.addEventListener('click', () => {
-    typeFilter(markGuy)
-  })
-  btnGrandmother.addEventListener('click', () => {
-    typeFilter()
-  })
-  btnGranddad.addEventListener('click', () => {
-    typeFilter()
-  })
+  const filterElement = (btn: Element, mark?: NodeListOf<Element>) => {
+    btn.addEventListener('click', () => typeFilter(mark))
+  }
+
+  filterElement(btnAll, markAll)
+  filterElement(btnLovers, markLovers)
+  filterElement(btnChef, markChef)
+  filterElement(btnGirl, markGirl)
+  filterElement(btnGuy, markGuy)
+  filterElement(btnGrandmother)
+  filterElement(btnGranddad)
 
   menu.addEventListener('click', (e: Event) => {
     let target = e.target as HTMLElement
