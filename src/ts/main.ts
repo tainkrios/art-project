@@ -1,4 +1,4 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc } from './modules/modules'
+import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter } from './modules/modules'
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'
@@ -31,4 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
     promo: '.promocode',
     result: '.calc-price'
   })
+
+  filter()
 })
