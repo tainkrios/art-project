@@ -4,8 +4,8 @@ const gulp = require('gulp')
 const webpack = require('webpack-stream')
 const browsersync = require('browser-sync').create()
 
-const dist = './dist/'
-// const dist = 'C:/openserver/domains/art-project'
+// const dist = './dist/'
+const dist = 'C:/openserver/domains/art-project'
 
 gulp.task('copy-html', () => {
   return gulp

@@ -1,4 +1,18 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize, accordion, burger, scrolling } from './modules/modules'
+import { 
+  modals,
+  sliders,
+  forms,
+  mask,
+  checkTextInputs,
+  showMoreStyles,
+  calc,
+  filter,
+  pictureSize,
+  accordion,
+  burger,
+  scrolling,
+  drop
+} from './modules/modules'
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'
@@ -41,4 +55,6 @@ window.addEventListener('DOMContentLoaded', () => {
   burger('.burger-menu', '.burger')
 
   scrolling('.pageup')
+
+  drop()
 })
