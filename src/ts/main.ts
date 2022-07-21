@@ -1,4 +1,4 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize, accordion, burger } from './modules/modules'
+import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize, accordion, burger, scrolling } from './modules/modules'
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict'
@@ -39,4 +39,6 @@ window.addEventListener('DOMContentLoaded', () => {
   accordion('.accordion-heading')
 
   burger('.burger-menu', '.burger')
+
+  scrolling('.pageup')
 })
