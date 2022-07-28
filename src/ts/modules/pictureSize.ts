@@ -20,11 +20,7 @@ export const pictureSize = (imgSelector: string) => {
   }
 
   blocks.forEach(block => {
-    block.addEventListener('mouseover', () => {
-      showImg(block)
-    })
-    block.addEventListener('mouseout', () => {
-      hideImg(block)
-    })
+    block.addEventListener('mouseover', () => showImg(block))
+    block.addEventListener('mouseout', () => hideImg(block))
   })
 }
