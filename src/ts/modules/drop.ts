@@ -2,7 +2,7 @@ export const drop = () => {
   const fileInputs = document.querySelectorAll('[name="upload"]')
 
 
-  let events = ['dragenter', 'dragleave', 'dragover', 'drop']
+  const events = ['dragenter', 'dragleave', 'dragover', 'drop']
   events.forEach(eventName => {
     fileInputs.forEach(input => {
       input.addEventListener(eventName, preventDefaults, false)
@@ -15,17 +15,12 @@ export const drop = () => {
   }
 
   function highlight(item: Element) {
-    item.closest('.file_upload').style.border = '5px solid yellow'
-    item.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.7)'
+    item.closest<HTMLElement>('.file_upload').style.border = '5px solid yellow'
+    item.closest<HTMLElement>('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.7)'
   }
 
-  function unhighlight(item) {
-    item.closest('.file_upload').style.border = 'none'
-    if (item.closest('.calc-form')) {      
-      item.closest('.file_upload').style.backgroundColor = '#fff'
-    } else {
-      item.closest('.file_upload').style.backgroundColor = '#ededed'
-    }
+  function unhighlight(item: Element) {
+    item.closest<HTMLElement>('.file_upload').style.border = item.closest('.calc-form') ? '#fff' : '#ededed'
   }
 
   ['dragenter', 'dragover'].forEach(eventName => {
@@ -40,8 +35,8 @@ export const drop = () => {
     })
   });
 
-  fileInputs.forEach(input => {
-    input.addEventListener('drop', (e: Event) => {
+  fileInputs.forEach((input: HTMLInputElement) => {
+    input.addEventListener('drop', (e: DragEvent) => {
       input.files = e.dataTransfer.files
       const file = input.files[0]
       const fileName = file.name.split('.')[0]
