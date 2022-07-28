@@ -49,9 +49,9 @@ export const filter = () => {
   filterElement(btnGranddad)
 
   menu.addEventListener('click', (e: Event) => {
-    let target = e.target as HTMLElement
+    const target = e.target as HTMLElement
 
-    if (target && target.tagName == 'LI') {
+    if (target && target.tagName === 'LI') {
       items.forEach(btn => btn.classList.remove('active'))
       target.classList.add('active')
     }
